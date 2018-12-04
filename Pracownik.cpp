@@ -64,3 +64,22 @@ int Pracownik::SprawdzNazwisko(const char * por_nazwisko) const
 {
 	return m_Nazwisko.SprawdzNapis(por_nazwisko);
 }
+
+int Pracownik::Porownaj(const Pracownik & wzorzec) const
+{	//zwraca 0 gdy obiekt, na rzecz ktorego wywolywana jest metoda zgadza sie ze wzorcem przekazanym do metody
+	if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 &&
+		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
+		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) == 0)
+		return 0; 
+	//gdy nazwisko (nastepnie imie i data urodzin), jest alfabetycznie dalej (w przypadku daty - kolejnosc chronologiczna) niz przekazanego
+	else { 
+		if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) > 0)
+			return 1;
+		else if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 && m_Imie.SprawdzNapis(wzorzec.Imie()) > 0)
+			return 1;
+		else if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 && m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 && m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) > 0)
+			return 1;
+		else
+			return -1;  //w przeciwnej sytacji niz wyzej
+	}
+}

@@ -16,6 +16,11 @@ public:
 	int SprawdzImie(const char* por_imie) const;
 	int SprawdzNazwisko(const char* por_nazwisko) const;
 
+	//Zajecia 3: Rozbudowa projektu - cz.I
+	Pracownik* m_pNastepny;
+	int Porownaj(const Pracownik & wzorzec) const;
+
+
 
 private: 
 	Napis m_Imie;

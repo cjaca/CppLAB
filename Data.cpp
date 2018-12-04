@@ -53,6 +53,7 @@ void Data::Wpisz()
 	cin >> m_nMiesiac;
 	cout << "Podaj rok: " << endl;
 	cin >> m_nRok;
+	Ustaw(m_nDzien, m_nMiesiac, m_nRok);
 }
 
 int Data::Porownaj(const Data & wzor) const
@@ -65,8 +66,14 @@ int Data::Porownaj(const Data & wzor) const
 
 void Data::Koryguj()
 {
-	if (this->m_nDzien > 31) this->m_nDzien = 31;
-	if (m_nDzien < 1) m_nDzien = 1;
+	if (this->m_nDzien > 31) 
+	{
+		this->m_nDzien = 31;
+	}
+	if (m_nDzien < 1)
+	{
+		m_nDzien = 1;
+	}
 	if (m_nMiesiac > 12) m_nMiesiac = 12;
 	if (m_nMiesiac < 1) m_nMiesiac = 1;
 	if (m_nMiesiac == 2){
