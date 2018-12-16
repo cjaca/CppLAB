@@ -28,6 +28,7 @@ int main()
 			break;
 
 		case '2':
+
 			lista.WypiszPracownikow();
 			break;
 
