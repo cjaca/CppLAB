@@ -1,10 +1,12 @@
 #pragma once
 #include "Napis.h"
 #include "Data.h"
+#include <time.h>
 class Pracownik
 {
 public:
-	Pracownik();
+	Pracownik(const char * im="", const char * naz = "", int dzien = 1, int miesiac = 1, int rok = 2000);
+	Pracownik(const Pracownik & wzor);
 	~Pracownik();
 	const char* Imie() const;
 	const char* Nazwisko() const;
@@ -20,11 +22,17 @@ public:
 	Pracownik* m_pNastepny;
 	int Porownaj(const Pracownik & wzorzec) const;
 
+	Pracownik & operator=(const Pracownik & wzor);
+	bool operator==(const Pracownik & wzor) const;
 
+	friend ostream & operator<<(ostream & wy, const Pracownik &p);
+	friend istream & operator>>(istream & we, Pracownik & p);
 
 private: 
 	Napis m_Imie;
 	Napis m_Nazwisko;
 	Data m_DataUrodzenia;
+
+	const int m_nIDZatrudnienia; //unikalny id pracownika
 };
 

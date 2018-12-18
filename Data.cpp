@@ -4,11 +4,11 @@
 using namespace std;
 
 
-Data::Data()
+Data::Data(int d, int m, int r)
 {
-	m_nDzien = 1;
-	m_nMiesiac = 1;
-	m_nRok = 2000;
+	m_nDzien = d;
+	m_nMiesiac = m;
+	m_nRok = r;
 }
 
 
@@ -83,4 +83,20 @@ void Data::Koryguj()
 		}
 		else if (m_nDzien > 28) m_nDzien = 28;
 	}
+}
+
+ostream & operator<<(ostream & wy, const Data & d)
+{
+	// TODO: tu wstawiæ instrukcjê return
+	wy << d.m_nDzien << "-" << d.m_nMiesiac << "-" << d.m_nRok;
+	return wy;
+}
+
+istream & operator>>(istream & we, Data & d)
+{
+	// TODO: tu wstawiæ instrukcjê return
+	we >> d.m_nDzien;
+	we >> d.m_nMiesiac;
+	we >> d.m_nRok;
+	return we;
 }

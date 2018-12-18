@@ -1,4 +1,6 @@
 #include "ListaPracownikow.h"
+#include <fstream>
+
 
 
 
@@ -169,3 +171,28 @@ const Pracownik * ListaPracownikow::Szukaj(const char * nazwisko, const char * i
 		return nullptr;
 	}
 }
+
+void ListaPracownikow::SaveToFile() const
+{
+	ofstream plik;
+	plik.open("plik.dat", fstream::out);
+	if (!plik.good())
+	{
+		cout << "blad otwarcia pliku" << endl;
+	}
+	else
+	{
+		Pracownik * aktualny = m_pPoczatek;
+		for (int i = 0; i < m_nLiczbaPracownikow; i++) {
+			if (aktualny != nullptr)
+			{
+				plik << *aktualny << endl;
+			}
+			aktualny = aktualny->m_pNastepny;
+		}
+		
+	}
+	plik.close();
+}
+
+

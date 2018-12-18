@@ -15,5 +15,7 @@ public:
 	void Usun(const Pracownik & wzorzec);
 	void WypiszPracownikow() const;
 	const Pracownik* Szukaj(const char* nazwisko, const char* imie);
+	void SaveToFile() const;
+	void ReadFromFile();
 };
 

@@ -18,6 +18,7 @@ int main()
 		cout << "1 - dodawanie pracownika" << endl;
 		cout << "2 - wyswietlanie listy pracownikow" << endl;
 		cout << "3 - usuwanie z listy pracownikow" << endl;
+		cout << "4 - dodawanie pracownikow do pliku" << endl;
 		cin >> c;
 		switch (c) {
 		case '1':
@@ -36,6 +37,10 @@ int main()
 			pracownik = new Pracownik;
 			pracownik->Wpisz();
 			lista.Usun(*pracownik);
+			break;
+
+		case '4':
+			lista.SaveToFile();
 			break;
 
 		}

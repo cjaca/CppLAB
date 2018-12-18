@@ -2,8 +2,16 @@
 
 
 
-Pracownik::Pracownik()
+Pracownik::Pracownik(const char * im , const char * naz , int dzien , int miesiac , int rok )
+	:m_Imie(im), m_Nazwisko(naz), m_DataUrodzenia(dzien,miesiac,rok), m_nIDZatrudnienia(time(0))
 {
+
+}
+
+Pracownik::Pracownik(const Pracownik & wzor)
+	: m_nIDZatrudnienia(wzor.m_nIDZatrudnienia), m_Imie(wzor.m_Imie), m_Nazwisko(wzor.m_Nazwisko),m_DataUrodzenia(wzor.m_DataUrodzenia)
+{
+
 }
 
 
@@ -82,4 +90,36 @@ int Pracownik::Porownaj(const Pracownik & wzorzec) const
 		else
 			return -1;  //w przeciwnej sytacji niz wyzej
 	}
+}
+
+Pracownik & Pracownik::operator=(const Pracownik & wzor)
+{
+	// TODO: tu wstawiæ instrukcjê return
+
+	m_Imie = wzor.m_Imie;
+	m_Nazwisko = wzor.m_Nazwisko;
+	m_DataUrodzenia = wzor.m_DataUrodzenia;
+	return *this;
+
+}
+
+bool Pracownik::operator==(const Pracownik & wzor) const
+{
+
+	if (this->Porownaj(wzor) == 0) return true;
+	else return false;
+}
+
+ostream & operator<<(ostream & wy, const Pracownik & p)
+{
+	// TODO: tu wstawiæ instrukcjê return
+	wy << "Imie: " << p.m_Imie << " ,Nazwisko: " << p.m_Nazwisko << " ,Data urodzenia: " << p.m_DataUrodzenia;
+	return wy;
+}
+
+istream & operator>>(istream & we, Pracownik & p)
+{
+	// TODO: tu wstawiæ instrukcjê return
+	we >> p.m_Imie >> p.m_Nazwisko >> p.m_DataUrodzenia;
+	return we;
 }
