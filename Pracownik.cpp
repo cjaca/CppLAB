@@ -113,7 +113,7 @@ bool Pracownik::operator==(const Pracownik & wzor) const
 ostream & operator<<(ostream & wy, const Pracownik & p)
 {
 	// TODO: tu wstawiæ instrukcjê return
-	wy << "Imie: " << p.m_Imie << " ,Nazwisko: " << p.m_Nazwisko << " ,Data urodzenia: " << p.m_DataUrodzenia;
+	wy << p.m_Imie << " " << p.m_Nazwisko << " " << p.m_DataUrodzenia;
 	return wy;
 }
 

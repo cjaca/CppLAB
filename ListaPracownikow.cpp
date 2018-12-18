@@ -175,7 +175,7 @@ const Pracownik * ListaPracownikow::Szukaj(const char * nazwisko, const char * i
 void ListaPracownikow::SaveToFile() const
 {
 	ofstream plik;
-	plik.open("plik.dat", fstream::out);
+	plik.open("plik.txt", fstream::out);
 	if (!plik.good())
 	{
 		cout << "blad otwarcia pliku" << endl;
@@ -191,6 +191,30 @@ void ListaPracownikow::SaveToFile() const
 			aktualny = aktualny->m_pNastepny;
 		}
 		
+	}
+	plik.close();
+}
+
+void ListaPracownikow::ReadFromFile()
+{
+	ifstream plik;
+	plik.open("plik.txt", fstream::out);
+
+	if (!plik.good())
+	{
+		cout << "blad otwarcia pliku" << endl;
+	}
+	else
+	{
+		m_nLiczbaPracownikow = 0;
+		m_pPoczatek = nullptr;
+		Pracownik * tymczasowy = new Pracownik();
+		while (plik >> *tymczasowy)
+		{
+			Dodaj(*tymczasowy);
+			tymczasowy = new Pracownik();
+		}
+
 	}
 	plik.close();
 }

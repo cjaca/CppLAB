@@ -19,6 +19,7 @@ int main()
 		cout << "2 - wyswietlanie listy pracownikow" << endl;
 		cout << "3 - usuwanie z listy pracownikow" << endl;
 		cout << "4 - dodawanie pracownikow do pliku" << endl;
+		cout << "5 - dodawanie pracownikow z pliku" << endl;
 		cin >> c;
 		switch (c) {
 		case '1':
@@ -41,6 +42,10 @@ int main()
 
 		case '4':
 			lista.SaveToFile();
+			break;
+
+		case '5':
+			lista.ReadFromFile();
 			break;
 
 		}
