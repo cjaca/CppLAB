@@ -5,7 +5,7 @@ class ListaPracownikow
 private: 
 	Pracownik* m_pPoczatek; //nowy pracownik
 	int m_nLiczbaPracownikow;
-
+	bool notfound = false;
 
 public:
 	ListaPracownikow();

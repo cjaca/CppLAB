@@ -55,7 +55,7 @@ void Pracownik::Wypisz() const
 
 void Pracownik::Wpisz()
 {
-	cout << " Podaj imie: ";
+	cout << "Podaj imie: ";
 	m_Imie.Wpisz();
 	cout << "Podaj nazwisko: ";
 	m_Nazwisko.Wpisz();
@@ -108,6 +108,19 @@ bool Pracownik::operator==(const Pracownik & wzor) const
 
 	if (this->Porownaj(wzor) == 0) return true;
 	else return false;
+}
+
+void Pracownik::WypiszDane()
+{
+	cout <<"ID zatrudnienia: "<< m_nIDZatrudnienia << ", " << m_Imie << " " << m_Nazwisko << ", " << m_DataUrodzenia;
+}
+
+Pracownik * Pracownik::KopiaObiektu()
+{
+	Pracownik * nowy;
+	nowy = new Pracownik(*this);
+
+	return nowy;
 }
 
 ostream & operator<<(ostream & wy, const Pracownik & p)

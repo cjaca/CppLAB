@@ -28,7 +28,11 @@ public:
 	friend ostream & operator<<(ostream & wy, const Pracownik &p);
 	friend istream & operator>>(istream & we, Pracownik & p);
 
-private: 
+	virtual void WypiszDane(); //wypisuje na ekranie wszystkie dane o pracowniku
+	virtual Pracownik* KopiaObiektu();  // zwrocenie nowo stworzonego obiektu
+
+
+protected: 
 	Napis m_Imie;
 	Napis m_Nazwisko;
 	Data m_DataUrodzenia;

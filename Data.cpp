@@ -88,13 +88,14 @@ void Data::Koryguj()
 ostream & operator<<(ostream & wy, const Data & d)
 {
 	// TODO: tu wstawiæ instrukcjê return
-	wy << d.m_nDzien << "-" << d.m_nMiesiac << "-" << d.m_nRok;
+	wy << d.m_nDzien <<" "<<d.m_nMiesiac<<" "<< d.m_nRok;
 	return wy;
 }
 
 istream & operator>>(istream & we, Data & d)
 {
 	// TODO: tu wstawiæ instrukcjê return
+
 	we >> d.m_nDzien;
 	we >> d.m_nMiesiac;
 	we >> d.m_nRok;
