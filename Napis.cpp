@@ -67,7 +67,7 @@ Napis & Napis::operator=(const Napis & wzor)
 	return *this;
 }
 
-bool Napis::operator==(const Napis & wzor) const //sam to robilem i nie jestem pewny do konca czy to jest dobrze
+bool Napis::operator==(const Napis & wzor) const
 {
 	if (this->m_pszNapis == wzor.m_pszNapis) return true;
 	else return false;

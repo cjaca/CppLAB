@@ -53,7 +53,7 @@ void ListaPracownikow::Dodaj(const Pracownik & p)
 		nastepny = aktualny->m_pNastepny;
 		if (aktualny->SprawdzNazwisko(k->Nazwisko()) > 0)
 		{
-			m_pPoczatek = new Pracownik(p);
+			m_pPoczatek = k;
 			k->m_pNastepny = aktualny;
 			m_nLiczbaPracownikow++;
 			return;
