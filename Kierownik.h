@@ -9,8 +9,9 @@ public:
 	~Kierownik();
 	Kierownik & operator=(const Kierownik & wzor);
 	bool operator==(const Kierownik & wzor) const;
+	void Wpisz();
 	virtual void WypiszDane();
-	virtual Pracownik* KopiaObiektu();
+	virtual Pracownik* KopiaObiektu()const;
 	friend ostream & operator<<(ostream & wy, const Kierownik &s);
 	friend istream & operator>>(istream & we, Kierownik &s);
 private:

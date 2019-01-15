@@ -79,6 +79,14 @@ int Pracownik::Porownaj(const Pracownik & wzorzec) const
 		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
 		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) == 0)
 		return 0; 
+	if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 &&
+		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
+		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) < 0)
+		return 3;
+	if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 &&
+		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
+		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) > 0)
+		return 2;
 	//gdy nazwisko (nastepnie imie i data urodzin), jest alfabetycznie dalej (w przypadku daty - kolejnosc chronologiczna) niz przekazanego
 	else { 
 		if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) > 0)
@@ -112,10 +120,10 @@ bool Pracownik::operator==(const Pracownik & wzor) const
 
 void Pracownik::WypiszDane()
 {
-	cout <<"ID zatrudnienia: "<< m_nIDZatrudnienia << ", " << m_Imie << " " << m_Nazwisko << ", " << m_DataUrodzenia;
+	cout << "ID zatrudnienia: " << m_nIDZatrudnienia << ", " << m_Imie << " " << m_Nazwisko << ", " << "Data Urodzenia: Dzien:" << m_DataUrodzenia.Dzien() << ", Miesiac: " << m_DataUrodzenia.Miesiac() << ", Rok: " << m_DataUrodzenia.Rok();
 }
 
-Pracownik * Pracownik::KopiaObiektu()
+Pracownik * Pracownik::KopiaObiektu()const
 {
 	Pracownik * nowy;
 	nowy = new Pracownik(*this);

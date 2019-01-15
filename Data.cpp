@@ -58,10 +58,35 @@ void Data::Wpisz()
 
 int Data::Porownaj(const Data & wzor) const
 {
-	if((this->Dzien()==m_nDzien)&&(this->Miesiac()==m_nMiesiac)&&(this->Rok()==m_nRok)) return 0;
-	else if ((this->Miesiac() >= m_nMiesiac) && (this->Dzien() > m_nDzien) && (this->Rok() >= m_nRok)) return 1;
-	else if ((this->Miesiac() <= m_nMiesiac) && (this->Dzien() < m_nDzien) && (this->Rok() <= m_nRok)) return -1;
+	if ((this->Dzien() == wzor.m_nDzien) && (this->Miesiac() == wzor.m_nMiesiac) && (this->Rok() == wzor.m_nRok)) return 0;
+	else if (this->Rok() > wzor.m_nRok)
+	{
+		return 1;
+	}
+	else if (this->Rok() < wzor.m_nRok)
+	{
+		return -1;
+	}
+	else if (this->Miesiac() > wzor.m_nMiesiac)
+	{
+		return 1;
+	}
+	else if (this->Miesiac() < wzor.m_nMiesiac)
+	{
+		return -1;
 
+	}
+	else if (this->Dzien() > wzor.m_nDzien)
+	{
+		return 1;
+	}
+	else if (this->Dzien() < wzor.m_nDzien)
+	{
+		return -1;
+	}
+	/*else if ((this->Miesiac() >= m_nMiesiac) && (this->Dzien() > m_nDzien) && (this->Rok() >= m_nRok)) return 1;
+	else if ((this->Miesiac() <= m_nMiesiac) && (this->Dzien() < m_nDzien) && (this->Rok() <= m_nRok)) return -1;
+*/
 }
 
 void Data::Koryguj()

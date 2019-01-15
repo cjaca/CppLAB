@@ -29,10 +29,10 @@ public:
 	friend istream & operator>>(istream & we, Pracownik & p);
 
 	virtual void WypiszDane(); //wypisuje na ekranie wszystkie dane o pracowniku
-	virtual Pracownik* KopiaObiektu();  // zwrocenie nowo stworzonego obiektu
+	virtual Pracownik* KopiaObiektu()const;  // zwrocenie nowo stworzonego obiektu
 
 
-protected: 
+private: 
 	Napis m_Imie;
 	Napis m_Nazwisko;
 	Data m_DataUrodzenia;

@@ -8,7 +8,7 @@ Kierownik::Kierownik()
 	m_nLiczbaPracownikow = 1;
 }
 
-Kierownik::Kierownik(const Kierownik & wzor)
+Kierownik::Kierownik(const Kierownik & wzor):Pracownik(wzor)
 {
 	m_NazwaDzialu = wzor.m_NazwaDzialu;
 	m_nLiczbaPracownikow = wzor.m_nLiczbaPracownikow;
@@ -22,9 +22,7 @@ Kierownik::~Kierownik()
 Kierownik & Kierownik::operator=(const Kierownik & wzor)
 {
 	// TODO: tu wstawiæ instrukcjê return
-	m_Imie = wzor.m_Imie;
-	m_Nazwisko = wzor.m_Nazwisko;
-	m_DataUrodzenia = wzor.m_DataUrodzenia;
+	Pracownik::operator= (wzor);
 	m_NazwaDzialu = wzor.m_NazwaDzialu;
 	m_nLiczbaPracownikow = wzor.m_nLiczbaPracownikow;
 	return *this;
@@ -46,12 +44,20 @@ bool Kierownik::operator==(const Kierownik & wzor) const
 	}
 }
 
-void Kierownik::WypiszDane()
+void Kierownik::Wpisz()
 {
-	std::cout << m_Imie << " " << m_Nazwisko << " " << m_DataUrodzenia << " " << m_NazwaDzialu << " " << m_nIDZatrudnienia << std::endl;
+	Pracownik::Wpisz();
+	cout << "Podaj nazwe dzialu: ";
+	m_NazwaDzialu.Wpisz();
 }
 
-Pracownik * Kierownik::KopiaObiektu()
+void Kierownik::WypiszDane()
+{
+	Pracownik::WypiszDane();
+	std::cout  <<", Nazwa dzialu: "<< m_NazwaDzialu << std::endl;
+}
+
+Pracownik * Kierownik::KopiaObiektu()const
 {
 	Kierownik * nowy;
 	nowy = new Kierownik(*this);
@@ -61,13 +67,13 @@ Pracownik * Kierownik::KopiaObiektu()
 ostream & operator<<(ostream & wy, const Kierownik & s)
 {
 	// TODO: tu wstawiæ instrukcjê return
-	wy << s.m_Imie << " " << s.m_Nazwisko << " " << s.m_DataUrodzenia <<" "<< s.m_NazwaDzialu<<" " << s.m_nLiczbaPracownikow;
+	wy << s <<  s.m_NazwaDzialu;
 	return wy;
 }
 
 istream & operator>>(istream & we, Kierownik & s)
 {
 	// TODO: tu wstawiæ instrukcjê return
-	we >> s.m_Imie >> s.m_Nazwisko >>s.m_DataUrodzenia >> s.m_NazwaDzialu >> s.m_nLiczbaPracownikow;
+	we >> s >> s.m_NazwaDzialu ;
 	return we;
 }

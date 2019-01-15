@@ -17,7 +17,7 @@ ListaPracownikow::~ListaPracownikow()
 
 void ListaPracownikow::Dodaj(const Pracownik & p)
 {
-	Pracownik *k = new Pracownik(p);
+	Pracownik *k = p.KopiaObiektu();
 	Pracownik *aktualny = m_pPoczatek;
 	Pracownik *nastepny;
 	int licznik = 0;
@@ -25,7 +25,7 @@ void ListaPracownikow::Dodaj(const Pracownik & p)
 
 	if (m_nLiczbaPracownikow == 0)
 	{
-		m_pPoczatek = new Pracownik(p);
+		m_pPoczatek = k;//p.KopiaObiektu();
 		k->m_pNastepny = nullptr;
 		m_nLiczbaPracownikow++;
 		return;
@@ -47,6 +47,26 @@ void ListaPracownikow::Dodaj(const Pracownik & p)
 			m_nLiczbaPracownikow++;
 			return;
 		}
+		else if (aktualny->Porownaj(*k) == 3)
+		{
+			aktualny->m_pNastepny = k;
+			k->m_pNastepny = nullptr;
+			m_nLiczbaPracownikow++;
+			return;
+		}
+		else if (aktualny->Porownaj(*k) == 0)
+		{
+			return;
+
+		}
+		else if (aktualny->Porownaj(*k) == 2)
+		{
+			m_pPoczatek = k;
+			k->m_pNastepny = aktualny;
+			m_nLiczbaPracownikow++;
+			return;
+		}
+
 	}
 	else
 	{
@@ -60,6 +80,7 @@ void ListaPracownikow::Dodaj(const Pracownik & p)
 		}
 		while (licznik <= m_nLiczbaPracownikow)
 		{
+			nastepny = aktualny->m_pNastepny;
 			if (nastepny->SprawdzNazwisko(k->Nazwisko()) > 0)
 			{
 				aktualny->m_pNastepny = k;
@@ -73,6 +94,33 @@ void ListaPracownikow::Dodaj(const Pracownik & p)
 				nastepny = aktualny->m_pNastepny;
 				licznik++;
 			}
+			else if (nastepny->Porownaj(*k) == 2)
+			{
+
+				aktualny->m_pNastepny = k;
+				k->m_pNastepny = nastepny;
+				m_nLiczbaPracownikow++;
+				return;
+			}
+			else if (nastepny->Porownaj(*k) == 0)
+			{
+				return;
+			}
+			else if (nastepny->Porownaj(*k) == 3)
+			{
+				aktualny->m_pNastepny = k;
+				k->m_pNastepny = nastepny;
+				m_nLiczbaPracownikow++;
+				return;
+			}
+				else
+				{
+					aktualny->m_pNastepny = k;
+					k->m_pNastepny = nastepny;
+					m_nLiczbaPracownikow++;
+					return;
+				}
+			}
 			if (nastepny == nullptr)
 			{
 				aktualny->m_pNastepny = k;
@@ -83,7 +131,6 @@ void ListaPracownikow::Dodaj(const Pracownik & p)
 		}
 	}
 
-}
 
 void ListaPracownikow::Usun(const Pracownik & wzorzec)
 {
@@ -135,7 +182,7 @@ void ListaPracownikow::WypiszPracownikow() const
 		for (int i = 1; i <= m_nLiczbaPracownikow; i++)
 		{
 			std::cout << "Pracownik nr" << i << ": " << std::endl;
-			aktualny->Wypisz();
+			aktualny->WypiszDane();
 			aktualny = aktualny->m_pNastepny;
 			std::cout << " " << std::endl;
 		}
