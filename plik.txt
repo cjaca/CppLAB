@@ -1,4 +1,3 @@
+jacek ciuba 12 12 13
 jacek ciuba 12 12 12
-jacek ciuba 13 12 12
-jacek ciuba 14 12 12
-jacek ciuba 10 12 12
+jacek Ciuba 13 4 2019

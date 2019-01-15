@@ -13,123 +13,67 @@ ListaPracownikow::ListaPracownikow() //inicjowanie odpowiednich pol skladowych
 
 ListaPracownikow::~ListaPracownikow()
 {
+	Pracownik *aktualny = m_pPoczatek;
+	if (m_nLiczbaPracownikow == 0)
+	{
+		cout << "Lista pracownikow jest pusta!" << endl;
+	}
+	else
+	{
+		while (aktualny != nullptr)
+		{
+			aktualny = aktualny->m_pNastepny;
+			delete m_pPoczatek;
+			m_pPoczatek = aktualny;
+
+		}
+	}
 }
 
 void ListaPracownikow::Dodaj(const Pracownik & p)
 {
 	Pracownik *k = p.KopiaObiektu();
-	Pracownik *aktualny = m_pPoczatek;
-	Pracownik *nastepny;
-	int licznik = 0;
-
+	Pracownik *pomocnik = m_pPoczatek;
+	Pracownik *pop = nullptr;
 
 	if (m_nLiczbaPracownikow == 0)
 	{
-		m_pPoczatek = k;//p.KopiaObiektu();
+		m_pPoczatek = k;
 		k->m_pNastepny = nullptr;
 		m_nLiczbaPracownikow++;
 		return;
 	}
-	else if (m_nLiczbaPracownikow == 1)
-	{
-		if (aktualny->SprawdzNazwisko(k->Nazwisko()) > 0)
-		{
-			m_pPoczatek = k;
-			k->m_pNastepny = aktualny;
-			m_nLiczbaPracownikow++;
-			return;
-
-		}
-		else if (aktualny->SprawdzNazwisko(k->Nazwisko()) < 0)
-		{
-			aktualny->m_pNastepny = k;
-			k->m_pNastepny = nullptr;
-			m_nLiczbaPracownikow++;
-			return;
-		}
-		else if (aktualny->Porownaj(*k) == 3)
-		{
-			aktualny->m_pNastepny = k;
-			k->m_pNastepny = nullptr;
-			m_nLiczbaPracownikow++;
-			return;
-		}
-		else if (aktualny->Porownaj(*k) == 0)
-		{
-			return;
-
-		}
-		else if (aktualny->Porownaj(*k) == 2)
-		{
-			m_pPoczatek = k;
-			k->m_pNastepny = aktualny;
-			m_nLiczbaPracownikow++;
-			return;
-		}
-
-	}
 	else
 	{
-		nastepny = aktualny->m_pNastepny;
-		if (aktualny->SprawdzNazwisko(k->Nazwisko()) > 0)
+		while (pomocnik != nullptr) // czyli wykonywanie dopoki nie dojdzie do konca
 		{
-			m_pPoczatek = k;
-			k->m_pNastepny = aktualny;
-			m_nLiczbaPracownikow++;
-			return;
-		}
-		while (licznik <= m_nLiczbaPracownikow)
-		{
-			nastepny = aktualny->m_pNastepny;
-			if (nastepny->SprawdzNazwisko(k->Nazwisko()) > 0)
+			if (pomocnik->Porownaj(p) > 0)
 			{
-				aktualny->m_pNastepny = k;
-				k->m_pNastepny = nastepny;
-				m_nLiczbaPracownikow++;
-				return;
-			}
-			else if (nastepny->SprawdzNazwisko(k->Nazwisko()) < 0)
-			{
-				aktualny = nastepny;
-				nastepny = aktualny->m_pNastepny;
-				licznik++;
-			}
-			else if (nastepny->Porownaj(*k) == 2)
-			{
-
-				aktualny->m_pNastepny = k;
-				k->m_pNastepny = nastepny;
-				m_nLiczbaPracownikow++;
-				return;
-			}
-			else if (nastepny->Porownaj(*k) == 0)
-			{
-				return;
-			}
-			else if (nastepny->Porownaj(*k) == 3)
-			{
-				aktualny->m_pNastepny = k;
-				k->m_pNastepny = nastepny;
-				m_nLiczbaPracownikow++;
-				return;
-			}
-				else
+				Pracownik *k = p.KopiaObiektu();
+				if (pop)
 				{
-					aktualny->m_pNastepny = k;
-					k->m_pNastepny = nastepny;
-					m_nLiczbaPracownikow++;
-					return;
+					pop->m_pNastepny = k;
 				}
-			}
-			if (nastepny == nullptr)
-			{
-				aktualny->m_pNastepny = k;
-				k->m_pNastepny = nullptr;
+				else
+					m_pPoczatek = k;
+				k->m_pNastepny = pomocnik;
 				m_nLiczbaPracownikow++;
 				return;
 			}
+			else if (pomocnik->Porownaj(p) == 0)
+			{
+				cout << "obiekt juz wystepuje" << endl;
+				return;
+			}
+			pop = pomocnik;
+			pomocnik = pomocnik->m_pNastepny;
 		}
+		Pracownik *k = p.KopiaObiektu();
+		pop->m_pNastepny = k;
+		k->m_pNastepny = nullptr;
+		m_nLiczbaPracownikow++;
 	}
+}
 
 
 void ListaPracownikow::Usun(const Pracownik & wzorzec)

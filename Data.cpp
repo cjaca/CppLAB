@@ -58,35 +58,13 @@ void Data::Wpisz()
 
 int Data::Porownaj(const Data & wzor) const
 {
-	if ((this->Dzien() == wzor.m_nDzien) && (this->Miesiac() == wzor.m_nMiesiac) && (this->Rok() == wzor.m_nRok)) return 0;
-	else if (this->Rok() > wzor.m_nRok)
-	{
-		return 1;
-	}
-	else if (this->Rok() < wzor.m_nRok)
-	{
-		return -1;
-	}
-	else if (this->Miesiac() > wzor.m_nMiesiac)
-	{
-		return 1;
-	}
-	else if (this->Miesiac() < wzor.m_nMiesiac)
-	{
-		return -1;
-
-	}
-	else if (this->Dzien() > wzor.m_nDzien)
-	{
-		return 1;
-	}
-	else if (this->Dzien() < wzor.m_nDzien)
-	{
-		return -1;
-	}
-	/*else if ((this->Miesiac() >= m_nMiesiac) && (this->Dzien() > m_nDzien) && (this->Rok() >= m_nRok)) return 1;
-	else if ((this->Miesiac() <= m_nMiesiac) && (this->Dzien() < m_nDzien) && (this->Rok() <= m_nRok)) return -1;
-*/
+	int i;
+	if (wzor.m_nDzien == this->m_nDzien && wzor.m_nMiesiac == this->m_nMiesiac && wzor.m_nRok == this->m_nRok)
+		i = 0;
+	else if (wzor.m_nRok > this->m_nRok || wzor.m_nRok == this->m_nRok && wzor.m_nMiesiac > this->m_nMiesiac || wzor.m_nRok == this->m_nRok && wzor.m_nMiesiac == this->m_nMiesiac && wzor.m_nDzien > this->m_nDzien)
+		i = 1;
+	else i = -1;
+	return i;
 }
 
 void Data::Koryguj()
@@ -99,28 +77,38 @@ void Data::Koryguj()
 	{
 		m_nDzien = 1;
 	}
-	if (m_nMiesiac > 12) m_nMiesiac = 12;
-	if (m_nMiesiac < 1) m_nMiesiac = 1;
-	if (m_nMiesiac == 2){
+	if (m_nMiesiac > 12)
+	{
+		m_nMiesiac = 12;
+	}
+	if (m_nMiesiac < 1)
+	{
+		m_nMiesiac = 1;
+	}
+	if (m_nMiesiac == 2)
+	{
 		if ((m_nRok % 4 == 0 && m_nRok % 100 != 0) || m_nRok % 400 == 0)
 		{
 			if (m_nDzien > 29) m_nDzien = 29;
 		}
 		else if (m_nDzien > 28) m_nDzien = 28;
 	}
+	else if ((m_nMiesiac == 1 || m_nMiesiac == 3 || m_nMiesiac == 5 || m_nMiesiac == 7 || m_nMiesiac == 8 || m_nMiesiac == 10 || m_nMiesiac == 12) && m_nDzien > 31)
+		m_nDzien = 31;
+	else if (m_nDzien > 30)
+	{
+		m_nDzien = 30;
+	}
 }
 
 ostream & operator<<(ostream & wy, const Data & d)
 {
-	// TODO: tu wstawiæ instrukcjê return
 	wy << d.m_nDzien <<" "<<d.m_nMiesiac<<" "<< d.m_nRok;
 	return wy;
 }
 
 istream & operator>>(istream & we, Data & d)
 {
-	// TODO: tu wstawiæ instrukcjê return
-
 	we >> d.m_nDzien;
 	we >> d.m_nMiesiac;
 	we >> d.m_nRok;

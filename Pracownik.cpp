@@ -74,36 +74,21 @@ int Pracownik::SprawdzNazwisko(const char * por_nazwisko) const
 }
 
 int Pracownik::Porownaj(const Pracownik & wzorzec) const
-{	//zwraca 0 gdy obiekt, na rzecz ktorego wywolywana jest metoda zgadza sie ze wzorcem przekazanym do metody
-	if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 &&
-		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
-		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) == 0)
-		return 0; 
-	if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 &&
-		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
-		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) < 0)
-		return 3;
-	if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 &&
-		m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 &&
-		m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) > 0)
-		return 2;
-	//gdy nazwisko (nastepnie imie i data urodzin), jest alfabetycznie dalej (w przypadku daty - kolejnosc chronologiczna) niz przekazanego
-	else { 
-		if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) > 0)
-			return 1;
-		else if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 && m_Imie.SprawdzNapis(wzorzec.Imie()) > 0)
-			return 1;
-		else if (m_Nazwisko.SprawdzNapis(wzorzec.Nazwisko()) == 0 && m_Imie.SprawdzNapis(wzorzec.Imie()) == 0 && m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) > 0)
-			return 1;
-		else
-			return -1;  //w przeciwnej sytacji niz wyzej
+{	
+	int i=-1;
+	if (wzorzec.SprawdzImie(m_Imie.Zwroc()) == 0 && wzorzec.SprawdzNazwisko(m_Nazwisko.Zwroc()) == 0 && m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) == 0)
+	{
+		i = 0;
 	}
+	else if (wzorzec.SprawdzImie(m_Imie.Zwroc()) > 0 || wzorzec.SprawdzImie(m_Imie.Zwroc()) == 0 && wzorzec.SprawdzNazwisko(m_Nazwisko.Zwroc()) > 0 || wzorzec.SprawdzImie(m_Imie.Zwroc()) == 0 && wzorzec.SprawdzNazwisko(m_Nazwisko.Zwroc()) == 0 && m_DataUrodzenia.Porownaj(wzorzec.m_DataUrodzenia) > 0)
+	{
+		i = 1;
+	}
+	else return i;
 }
 
 Pracownik & Pracownik::operator=(const Pracownik & wzor)
 {
-	// TODO: tu wstawiæ instrukcjê return
-
 	m_Imie = wzor.m_Imie;
 	m_Nazwisko = wzor.m_Nazwisko;
 	m_DataUrodzenia = wzor.m_DataUrodzenia;
@@ -127,20 +112,17 @@ Pracownik * Pracownik::KopiaObiektu()const
 {
 	Pracownik * nowy;
 	nowy = new Pracownik(*this);
-
 	return nowy;
 }
 
 ostream & operator<<(ostream & wy, const Pracownik & p)
 {
-	// TODO: tu wstawiæ instrukcjê return
 	wy << p.m_Imie << " " << p.m_Nazwisko << " " << p.m_DataUrodzenia;
 	return wy;
 }
 
 istream & operator>>(istream & we, Pracownik & p)
 {
-	// TODO: tu wstawiæ instrukcjê return
 	we >> p.m_Imie >> p.m_Nazwisko >> p.m_DataUrodzenia;
 	return we;
 }
